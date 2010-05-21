@@ -1,0 +1,3 @@
+# Track eps and pdf files in the applekeys folder
+!applekeys/*.eps
+!applekeys/*.pdf

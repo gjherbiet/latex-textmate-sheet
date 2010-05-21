@@ -1,0 +1,414 @@
+%-----------------------------------------------------------------------
+% Document description and required packages
+%
+\documentclass[10pt,a4paper,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry} 
+\usepackage{graphics}
+\usepackage{hyperref}
+\usepackage{pdfsync}
+\usepackage{dot2texi}
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Change default fonts for the document
+%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\renewcommand*\familydefault{\sfdefault}
+\renewcommand*\ttdefault{txtt}
+%-----------------------------------------------------------------------
+
+
+
+%-----------------------------------------------------------------------
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+%
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space%
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\footnotesize\bfseries}}
+
+%-----------------------------------------------------------------------
+% Defines a command to easily insert keyboard modifier from pdf images
+%
+\newcommand{\key}[1]{
+	\scalebox{0.012}{\includegraphics{{#1}.pdf}}
+}
+%-----------------------------------------------------------------------
+
+\makeatother
+
+%-----------------------------------------------------------------------
+% Define BibTeX command
+%
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Here we go! 
+%
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{4}
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Document title
+%
+\begin{center}
+     \Large{\textbf{TextMate and \LaTeX\\Cheat Sheet}} \\
+\end{center}
+
+\key{escape}Escape (esc), \key{tab}Tab, \key{revtab}Reverse Tab (\key{shift}\key{tab}),\\
+\key{shift}Shift, \texttt{fn} Function (fn), \key{control}Control (ctrl),\\
+\key{option}Option (alt), \key{command}Command (cmd), \\
+\key{return}Carriage Return, \key{delete}Delete.
+
+\texttt{|}: alternatives in shortcuts
+
+\emph{Shortcuts in italic refer to custom shortcuts.}
+
+%----------------------------------------------------------------------- 
+
+%-----------------------------------------------------------------------
+% TextMate generic shortcuts
+%
+\section{TextMate} % (fold)
+\label{sec:textmate}
+
+\subsection{Generic shortcuts} % (fold)
+\label{sub:generic_shortcuts}
+\begin{tabular}{@{}ll@{}}
+	\key{escape}						& Auto-completion\\
+	\key{command}\texttt{\{}			& Environment based on current word\\
+	\key{option}\key{command}\texttt{.}	& Close current environment\\
+	\key{command}\texttt{\}}			& Command based on current word\\
+	\key{command}\texttt{/}				& Comment/Uncomment line/selection 
+\end{tabular}
+
+
+\emph{Environments and Commands can be generated from many keywords (as shown
+here). More can be added by going to \texttt{Bundles $\rightarrow$ LaTex
+$\rightarrow$ Edit Configuration File}.}
+% subsection generic_shortcuts (end)
+
+\subsection{Bundles} % (fold)
+\label{sub:bundles}
+\begin{tabular}{@{}ll@{}}
+	\key{control}\key{option}\key{shift}\texttt{L}	& LaTeX\\
+	\key{control}\key{option}\key{shift}\texttt{B}	& LaTeX Beamer\\
+	\key{control}\key{option}\key{shift}\texttt{M}	& LaTeX Memoir
+\end{tabular}
+% subsection bundles (end)
+
+\subsection{Project management} % (fold)
+\label{sub:project_management}
+\begin{tabular}{@{}ll@{}}
+	\key{control}\key{shift}\texttt{A} 	& SubVersioN control menu\\
+	\key{control}\texttt{L}				& Open project master file\\ 
+\end{tabular}
+% subsection project_management (end)
+
+% section textmate (end)
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Compilation and output
+%
+\section{Compilation and output} % (fold)
+\label{sec:compilation_and_output}
+\begin{tabular}{@{}ll@{}}
+	\key{control}\key{shift}\texttt{V}					& Verify LaTeX code (chktex)\\
+	\key{command}\texttt{R}								& Compile and view (PDF)\\
+	\key{control}\key{option}\key{command}\texttt{O}	& Show in PDF viewer\\
+	\key{control}\key{command}\texttt{W}				& Watch document\\
+	\key{control}\key{option}\key{delete}				& Delete aux files
+\end{tabular}
+% section compilation_and_output (end)
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Document structure
+%
+\section{Document structure} % (fold)
+\label{sec:document_structure}
+
+\begin{tabular}{@{}ll@{}}
+	\key{shift}\key{command}\texttt{O}	& Show Document Outline
+\end{tabular}
+
+\subsection{Document Header} % (fold)
+\label{sub:document_header}
+\begin{tabular}{@{}ll@{}}
+	\texttt{dc}\key{command}\texttt{\}}		& Document class (article by default)\\
+	\texttt{nc}\key{command}\texttt{\}}		& New command\\
+	\texttt{rnc}\key{command}\texttt{\}}	& Renew command\\
+	\texttt{usep}\key{command}\texttt{\}}	& Use Package\\
+	\texttt{geo}\key{command}\texttt{\}}	& Use Geometry Package\\
+	\emph{\texttt{inc}\key{command}\texttt{\}}}	& \emph{Include a tex file in document}\\
+\end{tabular}
+% subsection document_header (end)
+
+\subsection{Sectionning} % (fold)
+\label{sub:sectionning}
+
+\begin{tabular}{@{}ll@{}}
+	\texttt{part}\key{tab}		& New part\\
+	\texttt{cha}\key{tab}		& New chapter\\
+	\texttt{sec}\key{tab}		& New section\\
+	\texttt{sub}\key{tab}		& New subsection\\
+	\texttt{subs}\key{tab}		& New sub-subsection\\
+	\texttt{par}\key{tab}		& New paragraph\\
+	\texttt{subp}\key{tab}		& New sub-paragraph\\
+	\texttt{subp}\key{tab}		& New sub-paragraph\\
+	\key{control}\texttt{*}		& Toggle starred
+\end{tabular}
+
+\emph{New structures will be created with associated label and folding attributes.\\
+Label name is automatically derived from the structure name.}
+% subsection sectionning (end)
+
+
+
+\subsection{Environments} % (fold)
+\label{sub:environments}
+\begin{tabular}{@{}ll@{}}
+	\texttt{begin}\key{tab}							& Create environnement ($\backslash$begin\{\}\ldots$\backslash$end\{\})\\
+	\key{control}\key{shift}\key{command}\texttt{W}	& Wrap current selection in environment\\
+	\key{command}\texttt{\{}						& Environment based on current word\\
+	\key{option}\key{command}\texttt{.}				& Environment closer
+\end{tabular}
+% subsection environments (end)
+
+\subsection{Commands} % (fold)
+\label{sub:commands}
+
+\begin{tabular}{@{}ll@{}}
+	\key{control}\key{shift}\texttt{W}	& Create command\\
+	\key{command}\texttt{\}}			& Command based on current word\\
+	\key{command}\key{escape}			& Command completion
+\end{tabular}
+
+\emph{The Create command will generate and highlight the mostly used command.}
+% subsection commands (end)`
+
+\subsection{Lists} % (fold)
+\label{ssub:lists}
+
+\begin{tabular}{@{}ll@{}}
+	\texttt{enum}\key{tab} \textit{or} 	\texttt{en|enum}\key{command}\texttt{\{}	& New enumerate\\
+	\texttt{item}\key{tab} \textit{or} 	\texttt{it|ietm}\key{command}\texttt{\{}	& New itemize\\
+	\texttt{desc}\key{tab} \textit{or} 	\texttt{desc}\key{command}\texttt{\{}		& New description\\
+	\texttt{fn}\key{return}															& New item\\
+	\texttt{itd}\key{tab}															& New item with description\\
+	\key{control}\key{shift}\texttt{L}												& Itemize lines in selection
+\end{tabular}
+
+\emph{Item with description is required under the description environment.\\
+New item shortcut will automatically add a new line.\\
+Itemize lines in selection displays a popup that lets you chose between
+Left/Right and Itemize lines.}
+% subsection lists (end)
+
+% section document_structure (end)
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Formatting
+%
+\section{Formatting} % (fold)
+\label{sec:formatting}
+\begin{tabular}{@{}ll@{}}
+	\key{command}\texttt{B} \textit{or} \texttt{bf}\key{command}\texttt{\}}	& Bold\\
+	\key{command}\texttt{I}	\textit{or} \texttt{e}\key{command}\texttt{\}}	& Italic (emphasize)\\
+	\texttt{it}\key{command}\texttt{\}}										& Italic\\
+	\key{command}\texttt{U}				& Underline\\
+	\key{command}\texttt{K}				& Typewriter\\
+	\key{option}\key{command}\texttt{K}	& Verbatim\\
+	\key{shift}\key{command}\texttt{K} \textit{or} \texttt{sc}\key{command}\texttt{\}}	& Small caps
+\end{tabular}
+% section formatting (end)
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Content and References
+%
+\section{Content and References} % (fold)
+\label{sec:content_and_references}
+
+\subsection{Tables} % (fold)
+\label{sub:tables}
+\begin{tabular}{@{}ll@{}}
+	\texttt{tab}\key{tab}							& New Tabular environment\\
+	\key{control}\key{shift}\key{command}\texttt{T}	& Create Table Wizard \\
+	\texttt{tbl|table}\key{command}\texttt{\}}		& Centered table with caption and label\\	
+	\key{control}\key{shift}\key{command}\texttt{T}	& Convert Selection to Table\\
+	\texttt{fn}\key{return}							& Add row\\
+	\key{control}\key{option}$\rightarrow$			& Add column\\
+	\key{control}\key{option}$\leftarrow$			& Remove column\\
+	\key{control}\key{tab}			 				& Next cell\\
+	\key{control}\key{revtab}		 				& Previous cell\\
+	\texttt{hf}\key{command}\texttt{\}}				& Horizontal line (hfill)\\
+	\texttt{vf}\key{command}\texttt{\}}				& Vertical line (vfill)\\
+	\key{control}\texttt{\&}						& Reformat
+\end{tabular}
+
+\emph{The Convert Selection to Table uses a multi-line tabulation-separated
+selection.}
+% subsection tables (end)
+
+\subsection{Other Labeled Environments} % (fold)
+\label{sub:other_labeled_environments}
+\begin{tabular}{@{}ll@{}}
+	\texttt{fig|figure}\key{command}\texttt{\{}			& Figure\\
+	\texttt{pic|picture}\key{command}\texttt{\{}		& Picture\\
+	\texttt{lst|lstlisting}\key{command}\texttt{\{}		& Listings\\
+	\texttt{def|definition}\key{command}\texttt{\{}		& Definition\\
+	\texttt{pro|proposition}\key{command}\texttt{\{}	& Proposition\\
+	\texttt{thm|theorem}\key{command}\texttt{\{}		& Theorem\\
+	\texttt{lem|lemma}\key{command}\texttt{\{}			& Lemma\\
+	\texttt{cor|corrolary}\key{command}\texttt{\{}		& Corrolary\\
+	\texttt{pf|proof}\key{command}\texttt{\{}			& Proof
+\end{tabular}
+% subsection other_labeled_environments (end)
+
+\subsection{Cross-references} % (fold)
+\label{sub:references}
+\begin{tabular}{@{}ll@{}}
+	\texttt{figure}\key{tab}			& New reference to Figure\\
+	\texttt{listing}\key{tab}			& New reference to Listing\\
+	\texttt{page}\key{tab}				& New reference to Page\\
+	\texttt{section}\key{tab}			& New reference to Section\\
+	\texttt{table}\key{tab}				& New reference to Table\\
+	\key{option}\key{escape}			& New cite from Bibtex\\
+	\key{option}\key{escape}			& New reference from keyword\\
+\end{tabular}
+% subsection references (end)
+
+% section content_and_references (end)
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Mathematics
+%
+\section{Mathematics} % (fold)
+\label{sec:mathematics}
+
+\subsection{Maths environments} % (fold)
+\label{sub:maths_environments}
+\begin{tabular}{@{}ll@{}}
+	\texttt{\$}																	& Display inline Maths \\
+	\texttt{\$\$}\key{tab}														& Display Maths \\
+	\key{control}\key{shift}\texttt{M}											& Maths mode\\
+	\texttt{eq}\key{tab} \textit{or} 	\texttt{eq|eqn}\key{command}\texttt{\{}	& Equation environment\\
+	\texttt{eq*|eqn*}\key{command}\texttt{\{}									& Unnumbered Equation environment\\
+	\texttt{eqa|eqnarray}\key{command}\texttt{\{}								& Equation array\\
+	\texttt{eqa*|eqnarray*}\key{command}\texttt{\{}								& Unnumbered Equation array\\
+\end{tabular}
+
+\emph{For inline Maths, typing a single \texttt{\$} sign will cause TextMate to
+autocomplete with the closing sign.\\
+The Maths mode command displays a popup menu that lets you chose between
+Display Maths and Maths mode.}
+% subsection maths_environments (end)
+
+\subsection{Maths structures} % (fold)
+\label{sub:maths_structures}
+\begin{tabular}{@{}ll@{}}
+	\texttt{ali}\key{tab}			& Align(ed)\\
+	\texttt{gat}\key{tab}			& Gather(ed)\\
+	\texttt{spl}\key{tab}			& Split\\
+	\texttt{mat}\key{tab}			& Matrix\\
+	\texttt{cas}\key{tab}			& Cases
+\end{tabular}
+% subsection maths_structures (end)
+
+\subsection{Maths expressions} % (fold)
+\label{sub:maths_expressions}
+\begin{tabular}{@{}ll@{}}
+	\texttt{fr|frac}\key{command}\texttt{\}}		& Fraction\\
+	\texttt{l|lim}\key{command}\texttt{\}}			& Limit\\
+	\texttt{s|sum}\key{command}\texttt{\}}			& Sum\\
+	\texttt{p|prod}\key{command}\texttt{\}}			& Product\\
+\end{tabular}
+% subsection maths_expressions (end)
+
+% section mathematics (end)
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Beamer
+%
+\section{Beamer} % (fold)
+\label{sec:beamer}
+
+\begin{tabular}{@{}ll@{}}
+	\texttt{fr}|\texttt{frame}\key{command}\texttt{\{}		& New frame\\
+	\texttt{col}|\texttt{column}\key{command}\texttt{\{}	& New column\\
+	\texttt{bl}|\texttt{block}\key{command}\texttt{\{}		& New block\\
+	\key{command}\texttt{<}									& Add beamer overlay\\
+\end{tabular}
+
+\emph{New beamer frame is created with default attribute \texttt{t} which aligns
+content to the top. \texttt{frametitle} option is automatically added.}
+% section beamer (end)
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% Footer of the document
+\rule{0.3\linewidth}{0.25pt}
+\scriptsize
+
+Copyright \copyright\ 2009 Guillaume-Jean Herbiet\\
+Revision: 0.4, Date: \today \\
+\url{http://www.herbiet.net}
+%-----------------------------------------------------------------------
+
+%-----------------------------------------------------------------------
+% That's all folks!
+\end{multicols}
+\end{document}
+%-----------------------------------------------------------------------
